@@ -89,6 +89,16 @@ function getPowerFunction(exponent) {
  */
 function getPolynom() {
   throw new Error('Not implemented');
+  // if (arguments.length === 1) {
+  //   return `y = ${arguments[0]}`;
+  // }
+  // if (arguments.length === 2) {
+  //   return `y = ${arguments[0]}*x + ${arguments[1]}`;
+  // }
+  // if (arguments.length === 3) {
+  //   return `y = ${arguments[0]}*x^2 + ${arguments[1]}*x + ${arguments[2]}`;
+  // }
+  // return null;
 }
 
 /**
@@ -105,8 +115,15 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const cache = new Map();
+  return (...args) => {
+    const key = JSON.stringify(args);
+    if (!cache.has(key)) {
+      cache.set(key, func.apply(this, args));
+    }
+    return cache.get(key);
+  };
 }
 
 /**
